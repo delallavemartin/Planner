@@ -2,7 +2,6 @@ package model;
 
 import static org.junit.Assert.*;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import model.evento.Tarea;
