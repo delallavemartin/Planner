@@ -52,13 +52,18 @@ public class Proyecto {
 		this.nombre = nombre;
 	}		
 	
-	public double completitudProyecto(){
+	public double porcentajeDeTareasCompletadas(){
 		int cantidadTareasCompletas = 0;
 		for(Tarea tarea:this.getTareas()){
 			if(tarea.estoyCompletada()){
 				cantidadTareasCompletas++;
 			}
 		}
+		return obtenerPorcentajeDeTareasCompletadas(cantidadTareasCompletas);
+	}
+
+	private double obtenerPorcentajeDeTareasCompletadas(
+			int cantidadTareasCompletas) {
 		return (double) cantidadTareasCompletas * 100.00 / (double) this.getTareas().size();
 	}
 

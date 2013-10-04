@@ -29,12 +29,12 @@ public class ProyectoTest {
 	}
 
 	@Test
-	public void completitudProyecto() {
+	public void testPorcentajeDeTareasCompletadas() {
 		Mockito.doReturn(true).when(tarea1).estoyCompletada();
 		Mockito.doReturn(true).when(tarea2).estoyCompletada();
 		Mockito.doReturn(true).when(tarea3).estoyCompletada();
 		Mockito.doReturn(false).when(tarea4).estoyCompletada();
-		assertTrue(proyecto.completitudProyecto()==75);
+		assertTrue(proyecto.porcentajeDeTareasCompletadas()==75);
 	}
-
+	
 }
