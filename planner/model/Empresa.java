@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.joda.time.Duration;
+import org.objenesis.instantiator.basic.NewInstanceInstantiator;
+
 import model.evento.Evento;
 import model.evento.Reunion;
 import model.recurso.Empleado;
@@ -62,17 +64,19 @@ public class Empresa {
 		
 		Set<Recurso> recursos = new HashSet<Recurso>();
 		
-		Recurso recurso;
-		
 		for(PerfilRecurso<Recurso> perfil : perfiles){
-			
-			if( (recurso = this.buscarRecursoParaReunionConPerfil(perfil, reunion)) != null){
-				
+			Recurso recurso = obtenerRecursoParaReunionConPerfil(reunion, perfil);
+			if(recurso != null){
 				recursos.add(recurso);
 			}
 		}
 		
 		return recursos;
+	}
+
+	public Recurso obtenerRecursoParaReunionConPerfil(Reunion reunion,
+			PerfilRecurso<Recurso> perfil) {
+		return this.buscarRecursoParaReunionConPerfil(perfil, reunion);
 	}
 	
 
@@ -98,8 +102,7 @@ public class Empresa {
 				candidatosSeleccionados.add(recurso);
 			}
 		}
-		
-		return (Recurso) reunion.getPrioridadSeleccion().aplicateSobreLosRecursosParaLaReunion(candidatosSeleccionados, reunion);
+		return reunion.aplicarPrioridadSobre(candidatosSeleccionados);
 	}
 	
 	@SuppressWarnings("unused")

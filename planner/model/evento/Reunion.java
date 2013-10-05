@@ -340,4 +340,8 @@ public class Reunion extends Evento implements Comparable<Evento>,ObservadorDeEs
 		return margen;
 	}
 
+	public Recurso aplicarPrioridadSobre(Set<Recurso> candidatosSeleccionados) {
+		return (Recurso) this.getPrioridadSeleccion().aplicateSobreLosRecursosParaLaReunion(candidatosSeleccionados, this);
+	}
+
 }

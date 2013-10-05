@@ -2,12 +2,20 @@ package model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
 import model.evento.Actividad;
 import model.evento.Evento;
+import model.evento.Reunion;
 import model.recurso.Empleado;
+import model.recurso.PerfilRecurso;
+import model.recurso.Recurso;
 import model.recurso.Rol;
+
 import org.joda.time.DateTime;
 import org.joda.time.Hours;
 import org.joda.time.MutableInterval;
@@ -22,7 +30,12 @@ public class EmpresaTest {
 	@Mock private Empleado empleado1;
 	@Mock private Empleado empleado2;
 	@Mock private Empleado empleado3;
+	@Mock private Reunion reunion;
+	@Mock private PerfilRecurso perfil1;
+	@Mock private PerfilRecurso perfil2;
 	
+	private Set<Recurso> recursos;
+	private List<PerfilRecurso> perfiles;
 	private Empresa empresa;
 	private Actividad actividad;
 	private Actividad actividad2;
@@ -44,7 +57,24 @@ public class EmpresaTest {
 		this.empresa.agregarEmpleado(empleado1);
 		this.empresa.agregarEmpleado(empleado2);
 		this.empresa.agregarEmpleado(empleado3);
+		
+		this.perfiles = new ArrayList<PerfilRecurso>();
+		this.perfiles.add(perfil1);
+		this.perfiles.add(perfil2);
+		
+		this.recursos = new HashSet<Recurso>();
+		this.recursos.add(empleado1);
+//		this.recursos.add(empleado2);
 	}
+	
+	@Test
+	public void testRecursosParaReunionConSoloPerfilesDeEmpleado(){
+		Mockito.when(this.empresa.obtenerRecursoParaReunionConPerfil(reunion, perfil1)).thenReturn(empleado1);
+//		Mockito.when(this.empresa.obtenerRecursoParaReunionConPerfil(reunion, perfil2)).thenReturn(empleado2);
+		assertEquals(recursos, this.empresa.recursosParaReunionConPerfiles(perfiles, reunion));
+		
+	}
+	
 	
 	@Test
 	public void testEmpresaDameTiempoDedicadoAlEventoParaUnGrupoDeEmpleados(){
