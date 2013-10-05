@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class tareaTest {
+public class TareaTest {
 	private TareaCompuesta tareaCompuesta;
 	private TareaCompuesta tareaCompuesta2;
 	private TareaComplejidadSimple tareaSimple;
