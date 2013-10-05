@@ -1,11 +1,6 @@
 package model.evento;
 
-import java.util.Set;
-
 import model.recurso.Empleado;
-import model.recurso.EmpleadoImp;
-import model.recurso.Recurso;
-
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.joda.time.MutableInterval;
