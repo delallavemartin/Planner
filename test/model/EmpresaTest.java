@@ -31,8 +31,7 @@ public class EmpresaTest {
 	@Mock private Empleado empleado2;
 	@Mock private Empleado empleado3;
 	@Mock private Reunion reunion;
-	@Mock private PerfilRecurso perfil1;
-	@Mock private PerfilRecurso perfil2;
+	@Mock private PerfilRecurso perfilMock;
 	
 	private Set<Recurso> recursos;
 	private List<PerfilRecurso> perfiles;
@@ -59,8 +58,8 @@ public class EmpresaTest {
 		this.empresa.agregarEmpleado(empleado3);
 		
 		this.perfiles = new ArrayList<PerfilRecurso>();
-		this.perfiles.add(perfil1);
-		this.perfiles.add(perfil2);
+		this.perfiles.add(perfilMock);
+		this.perfiles.add(perfilMock);
 		
 		this.recursos = new HashSet<Recurso>();
 		this.recursos.add(empleado1);
@@ -69,7 +68,7 @@ public class EmpresaTest {
 	
 	@Test
 	public void testRecursosParaReunionConSoloPerfilesDeEmpleado(){
-		Mockito.when(this.empresa.obtenerRecursoParaReunionConPerfil(reunion, perfil1)).thenReturn(empleado1).thenReturn(empleado2);
+		Mockito.when(this.empresa.obtenerRecursoParaReunionConPerfil(reunion, perfilMock)).thenReturn(empleado1).thenReturn(empleado2);
 		assertEquals(recursos, this.empresa.recursosParaReunionConPerfiles(perfiles, reunion));
 		
 	}
