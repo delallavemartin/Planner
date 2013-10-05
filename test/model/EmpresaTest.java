@@ -1,7 +1,6 @@
 package model;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -62,13 +61,24 @@ public class EmpresaTest {
 		this.perfiles.add(perfilMock);
 		
 		this.recursos = new HashSet<Recurso>();
-		this.recursos.add(empleado1);
-		this.recursos.add(empleado2);
+		
 	}
 	
 	@Test
 	public void testRecursosParaReunionConSoloPerfilesDeEmpleado(){
+		this.recursos.add(empleado1);
+		this.recursos.add(empleado2);
+		
 		Mockito.when(this.empresa.obtenerRecursoParaReunionConPerfil(reunion, perfilMock)).thenReturn(empleado1).thenReturn(empleado2);
+		assertEquals(recursos, this.empresa.recursosParaReunionConPerfiles(perfiles, reunion));
+		
+	}
+	
+	@Test
+	public void testRecursosParaReunionConSoloPerfilesDeEmpleadoConNull(){
+		this.recursos.add(empleado1);
+		
+		Mockito.when(this.empresa.obtenerRecursoParaReunionConPerfil(reunion, perfilMock)).thenReturn(empleado1).thenReturn(null);
 		assertEquals(recursos, this.empresa.recursosParaReunionConPerfiles(perfiles, reunion));
 		
 	}

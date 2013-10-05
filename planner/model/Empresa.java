@@ -105,6 +105,7 @@ public class Empresa {
 		return reunion.aplicarPrioridadSobre(candidatosSeleccionados);
 	}
 	
+	//TODO: verificar si realmente son utiles.
 	@SuppressWarnings("unused")
 	private Set<Recurso> recursosConPerfilEmpleado(){
 		
