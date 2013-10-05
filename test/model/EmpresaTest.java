@@ -64,13 +64,12 @@ public class EmpresaTest {
 		
 		this.recursos = new HashSet<Recurso>();
 		this.recursos.add(empleado1);
-//		this.recursos.add(empleado2);
+		this.recursos.add(empleado2);
 	}
 	
 	@Test
 	public void testRecursosParaReunionConSoloPerfilesDeEmpleado(){
-		Mockito.when(this.empresa.obtenerRecursoParaReunionConPerfil(reunion, perfil1)).thenReturn(empleado1);
-//		Mockito.when(this.empresa.obtenerRecursoParaReunionConPerfil(reunion, perfil2)).thenReturn(empleado2);
+		Mockito.when(this.empresa.obtenerRecursoParaReunionConPerfil(reunion, perfil1)).thenReturn(empleado1).thenReturn(empleado2);
 		assertEquals(recursos, this.empresa.recursosParaReunionConPerfiles(perfiles, reunion));
 		
 	}
