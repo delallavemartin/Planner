@@ -190,7 +190,7 @@ public class EmpleadoTest{
 	@Test
 	public void testDamePresupuestoParaUnEmpleadoQueNecesitaTransporte(){
 		Mockito.doReturn(10.00).when(empresa).getCostoDeTransporte();
-		Mockito.doReturn(0.5).when(reunion).duracion();
+		Mockito.doReturn(0.5).when(reunion).getDuracionEnMinutos();
 		Mockito.doReturn(sala).when(reunion).getSala();
 		Mockito.doReturn(false).when(sala).estasUbicadaEnEdificio(edificio);
 		Mockito.doReturn(false).when(reunion).estasUbicadaEnEdificio(edificio);
@@ -200,7 +200,7 @@ public class EmpleadoTest{
 	
 	@Test
 	public void testDamePresupuestoParaUnEmpleadoQueNoNecesitaTransporte(){
-		Mockito.doReturn(0.5).when(reunion).duracion();
+		Mockito.doReturn(0.5).when(reunion).getDuracionEnMinutos();
 		Mockito.doReturn(sala).when(reunion).getSala();
 		Mockito.doReturn(false).when(sala).estasUbicadaEnEdificio(edificio);
 		Mockito.doReturn(true).when(reunion).estasUbicadaEnEdificio(edificio);
@@ -336,7 +336,7 @@ public class EmpleadoTest{
 				
 		this.empleado.agendarActividad(actividad);
 		
-		assertEquals(10.0, this.empleado.dameDineroInvertidoEn(actividad), 10.0);	
+		assertEquals(600.0, this.empleado.dameDineroInvertidoEn(actividad), 600.0);	
 	}
 	@Test(expected=UserException.class)
 	public void testEmpleadoDameDineroInvertidoEnUnaActividadQueNoTengo(){
@@ -453,7 +453,7 @@ public class EmpleadoTest{
 		grupoDeEventos.add(actividad2);
 		grupoDeEventos.add(reunion);
 		
-		assertEquals(40, this.empleado.dameDineroInvertidoEn(grupoDeEventos), 40);	
+		assertEquals(1200, this.empleado.dameDineroInvertidoEn(grupoDeEventos), 1200);	
 	}
 
 }

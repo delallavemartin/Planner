@@ -174,7 +174,7 @@ public class EmpleadoImp extends RecursoReunible implements Empleado,ObservadorD
 		if (unaReunion.perteneceAlProyecto(this.getProyecto())) {
 			return 0;
 		} else {
-			return (this.getPrecio() * unaReunion.duracion())
+			return (this.getPrecio() * unaReunion.getDuracionEnMinutos())
 					+ (this.presupuestoAdicionalPorTraslado(unaReunion));
 		}
 	}
@@ -229,7 +229,7 @@ public class EmpleadoImp extends RecursoReunible implements Empleado,ObservadorD
 	public double damePorcentajeDeTiempoDedicadoPara(Evento evento) {
 		if (this.tengoLaActividad(evento)) {
 			double totalTiempoDeTrabajo = duracionDeTiempoDeTrabajo();
-			double porcentaje = (evento.duracion() * 100)
+			double porcentaje = (evento.getDuracionEnMinutos() * 100)
 					/ totalTiempoDeTrabajo;
 			return porcentaje;
 		}
@@ -237,12 +237,12 @@ public class EmpleadoImp extends RecursoReunible implements Empleado,ObservadorD
 	}
 
 	public double duracionDeTiempoDeTrabajo() {
-		return this.getHorarioDeTrabajo().toDuration().getStandardMinutes() / 60.0;
+		return this.getHorarioDeTrabajo().toDuration().getStandardMinutes();
 	}
 
 	public double dameDineroInvertidoEn(Evento evento) {
 		if (this.tengoLaActividad(evento)) {
-			return evento.duracion() * this.getPrecio();
+			return evento.getDuracionEnMinutos() * this.getPrecio();
 		}
 		return 0;
 	}

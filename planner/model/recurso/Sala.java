@@ -42,7 +42,7 @@ public class Sala extends RecursoReunible {
 	@Override
 	public double presupuestoPara(Reunion reunion){
 		
-		return this.getPrecio() * reunion.duracion(); 
+		return this.getPrecio() * reunion.getDuracionEnMinutos(); 
 	}
 	
 	

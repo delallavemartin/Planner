@@ -15,8 +15,8 @@ public abstract class Evento implements Comparable<Evento>{
 		return this.getFecha() != null && this.getHorario() != null;
 	}
 	
-	public double duracion() {
-		return (this.getHorario().toDuration().getStandardMinutes()/60.0);
+	public double getDuracionEnMinutos() {
+		return this.getDuracion().getStandardMinutes();
 	}
 
 	public Duration getDuracion() {

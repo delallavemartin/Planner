@@ -44,7 +44,7 @@ public class Herramienta extends RecursoReunible implements PerfilRecurso<Herram
 	
 	@Override
 	public double presupuestoPara(Reunion unaReunion) {
-		return this.getPrecio() * unaReunion.duracion();
+		return this.getPrecio() * unaReunion.getDuracionEnMinutos();
 	}
 
 	@Override

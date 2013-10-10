@@ -306,5 +306,21 @@ public class EventoTest {
 		assertEquals(-1, this.unEvento.compareTo(this.otroEvento));
 	}
 	
+	@Test
+	public void testGetDuracionEnMinutos() {
+		
+		this.unEvento.setHorario(horario);
+		assertEquals(30, this.unEvento.getDuracionEnMinutos(), 30);
+		
+	}
+	
+	@Test
+	public void testGetDuracion() {
+		
+		this.unEvento.setHorario(horario);
+		assertTrue(this.unEvento.getDuracion().isEqual(new Duration(1800000)));
+		
+	}
+	
 
 }
