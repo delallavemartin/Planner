@@ -75,6 +75,22 @@ public class EventoTest {
 	}
 	
 	@Test
+	public void testSeSuperponesConHorarioYFechaConMargen() {
+		DateTime inicio = new DateTime(2012, 1, 1, 12, 0, 0, 0);
+		DateTime fin = new DateTime(2012, 1, 1, 13, 0, 0, 0);
+		MutableInterval otroHorario = new MutableInterval(inicio, fin);
+		
+		unEvento.setFecha(fecha);
+		unEvento.setHorario(this.horario);
+		otroEvento.setHorario(otroHorario);
+		otroEvento.setFecha(fecha);
+		
+		Duration margen = new Duration(30);
+		
+		assertTrue(this.unEvento.seSuperponeConHorarioYFechaDe(otroEvento, margen));
+	}
+	
+	@Test
 	public void testNoSeSuperponesConHorarioSinMargen() {
 		
 		DateTime inicio = new DateTime(2012, 1, 1, 12, 0, 0, 0);
@@ -87,6 +103,23 @@ public class EventoTest {
 		otroEvento.setFecha(fecha);
 		
 		Duration margen = new Duration(0);
+		
+		assertFalse(this.unEvento.seSuperponeConHorarioYFechaDe(otroEvento, margen));
+	}
+	
+	@Test
+	public void testNoSeSuperponesConHorarioConMargen() {
+		
+		DateTime inicio = new DateTime(2012, 1, 1, 12, 0, 0, 0);
+		DateTime fin = new DateTime(2012, 1, 1, 12, 30, 0, 0);
+		MutableInterval otroHorario = new MutableInterval(inicio, fin);
+		
+		unEvento.setFecha(fecha);
+		unEvento.setHorario(this.horario);
+		otroEvento.setHorario(otroHorario);
+		otroEvento.setFecha(fecha);
+		
+		Duration margen = new Duration(20);
 		
 		assertFalse(this.unEvento.seSuperponeConHorarioYFechaDe(otroEvento, margen));
 	}
@@ -105,6 +138,19 @@ public class EventoTest {
 	}
 	
 	@Test
+	public void testNoSeSuperponesConFechaConMargen() {
+		
+		unEvento.setFecha(fecha);
+		unEvento.setHorario(this.horario);
+		otroEvento.setHorario(this.horario);
+		otroEvento.setFecha(otraFecha);
+		
+		Duration margen = new Duration(30);
+		
+		assertFalse(this.unEvento.seSuperponeConHorarioYFechaDe(otroEvento, margen));
+	}
+	
+	@Test
 	public void testTeSuperponesConHorarioSinMargen() {
 		
 		unEvento.setFecha(fecha);
@@ -113,6 +159,22 @@ public class EventoTest {
 		otroEvento.setFecha(fecha);
 		
 		Duration margen = new Duration(0);
+		
+		assertTrue(this.unEvento.teSuperponesCon(otroEvento, margen));
+	}
+	
+	@Test
+	public void testTeSuperponesConHorarioConMargen() {
+		DateTime inicio = new DateTime(2012, 1, 1, 12, 0, 0, 0);
+		DateTime fin = new DateTime(2012, 1, 1, 13, 0, 0, 0);
+		MutableInterval otroHorario = new MutableInterval(inicio, fin);
+		
+		unEvento.setFecha(fecha);
+		unEvento.setHorario(this.horario);
+		otroEvento.setHorario(otroHorario);
+		otroEvento.setFecha(fecha);
+		
+		Duration margen = new Duration(30);
 		
 		assertTrue(this.unEvento.teSuperponesCon(otroEvento, margen));
 	}
@@ -131,6 +193,24 @@ public class EventoTest {
 		otroEvento.setFecha(fecha);
 		
 		Duration margen = new Duration(0);
+		
+		assertFalse(this.unEvento.teSuperponesCon(otroEvento, margen));
+	}
+	
+	@Test
+	public void testNoTeSuperponesConHorarioConMargen() {
+		
+		DateTime inicio = new DateTime(2012, 1, 1, 12, 0, 0, 0);
+		DateTime fin = new DateTime(2012, 1, 1, 12, 30, 0, 0);
+		MutableInterval otroHorario = new MutableInterval(inicio, fin);
+
+		
+		unEvento.setFecha(fecha);
+		unEvento.setHorario(this.horario);
+		otroEvento.setHorario(otroHorario);
+		otroEvento.setFecha(fecha);
+		
+		Duration margen = new Duration(20);
 		
 		assertFalse(this.unEvento.teSuperponesCon(otroEvento, margen));
 	}
