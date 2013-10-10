@@ -50,14 +50,8 @@ public abstract class Evento implements Comparable<Evento>{
 		DateTime miHoraDeInicio = this.getHorario().getStart();
 		DateTime otraReunionHoraDeInicio = otroEvento.getHorario().getStart();
 		
-		if(miHoraDeInicio.isBefore(otraReunionHoraDeInicio)){
-			return -1;
-		}
-		if(miHoraDeInicio.isAfter(otraReunionHoraDeInicio)){
-			return 1;
-		}
+		return miHoraDeInicio.compareTo(otraReunionHoraDeInicio);
 		
-		return 0;
 	}
 	
 //Accessing
