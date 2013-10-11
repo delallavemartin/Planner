@@ -2,11 +2,21 @@ package model.evento;
 
 import static org.junit.Assert.*;
 
+import java.util.Set;
+
+import model.recurso.Empleado;
+import model.recurso.EmpleadoImp;
+
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.joda.time.MutableInterval;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+
+import exception.UserException;
 
 public class EventoTest {
 
@@ -15,16 +25,23 @@ public class EventoTest {
 	private MutableInterval horario;
 	private DateTime fecha;
 	private DateTime otraFecha;
+	@Mock
+	private EmpleadoImp unEmpleadoMocked;
+	@Mock
+	private Actividad unEventoMocked;
+	@Mock
+	private Set<Empleado> empleadosMocked;
 	
 	@Before
 	public void setUp(){
+		MockitoAnnotations.initMocks(this);
 		this.unEvento = new Actividad();
 		DateTime inicio = new DateTime(2012, 1, 1, 13, 0, 0, 0);
 		DateTime fin = new DateTime(2012, 1, 1, 13, 30, 0, 0);
 		fecha = new DateTime(2012, 1, 1, 0, 0, 0, 0);
 		otraFecha = new DateTime(2012, 1, 2, 0, 0, 0, 0);
 		this.horario = new MutableInterval(inicio, fin);
-		
+
 		this.otroEvento = new Actividad();
 	}
 	
@@ -322,5 +339,36 @@ public class EventoTest {
 		
 	}
 	
+	@Test
+	public void testEstasDisponible() {
+		Mockito.when(this.unEmpleadoMocked.estasDisponiblePara(unEvento)).thenReturn(true);
+		this.unEvento.estaDisponible(unEmpleadoMocked);
+	}
+	
+	@Test(expected=UserException.class)
+	public void testNoEstasDisponible() {
+		Mockito.when(this.unEmpleadoMocked.estasDisponiblePara(unEvento)).thenReturn(false);
+		this.unEvento.estaDisponible(unEmpleadoMocked);
+	}
+
+	
+	@Test
+	public void testAgregarRecursoDisponible() {
+		
+		Mockito.doCallRealMethod().when(this.unEventoMocked).agregaRecurso(unEmpleadoMocked);
+		this.unEventoMocked.agregaRecurso(unEmpleadoMocked);
+		Mockito.verify(this.unEventoMocked).estaDisponible(unEmpleadoMocked);
+		Mockito.verify(this.unEventoMocked).agregarEmpleado(unEmpleadoMocked);
+		
+	}
+	
+	@Test(expected=UserException.class)
+	public void testAgregarRecursoNoDisponible() {
+		
+		Mockito.doCallRealMethod().when(this.unEventoMocked).agregaRecurso(unEmpleadoMocked);
+		Mockito.doThrow(UserException.class).when(this.unEventoMocked).estaDisponible(unEmpleadoMocked);
+		this.unEventoMocked.agregaRecurso(unEmpleadoMocked);
+		
+	}
 
 }
