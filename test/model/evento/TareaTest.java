@@ -12,7 +12,9 @@ import org.mockito.Mockito;
 public class TareaTest {
 	private TareaCompuesta tareaCompuesta;
 	private TareaCompuesta tareaCompuesta2;
+	private TareaCompuesta tareaCompuesta3;
 	private TareaComplejidadSimple tareaSimple;
+	private TareaComplejidadSimple tareaSimple2;
 	private TareaComplejidadMedia tareaMedia;
 	private TareaComplejidadComplicada tareaComplicada;
 	private DateTime horaInicio1 = new DateTime(2012,4,4,15,0);
@@ -29,11 +31,18 @@ public class TareaTest {
 		
 		tareaCompuesta = new TareaCompuesta();
 		tareaCompuesta2 = new TareaCompuesta();
+		tareaCompuesta3 = new TareaCompuesta();
 		
 		tareaSimple = new TareaComplejidadSimple();
+		tareaSimple2 = new TareaComplejidadSimple();
 		tareaMedia = new TareaComplejidadMedia();
 		tareaComplicada = new TareaComplejidadComplicada();
 	
+		tareaSimple2.setInicio(horaInicio1);
+		//TODO: Esto se deberia automatizar para que no haya que harcodear una fecha que no haya terminado la reunion
+		tareaSimple2.setFin(new DateTime(2018,4,4,20,0));
+		tareaSimple2.setCostoPorHora(20.00);
+		
 		tareaSimple.setInicio(horaInicio1);
 		tareaSimple.setFin(horaFin1);
 		tareaSimple.setCostoPorHora(20.00);
@@ -51,6 +60,7 @@ public class TareaTest {
 		tareaCompuesta.agregarTarea(tareaSimple);
 		tareaCompuesta.agregarTarea(tareaMedia);
 		tareaCompuesta2.agregarTarea(tareaComplicada);
+		tareaCompuesta3.agregarTarea(tareaSimple2);
 		
 	}
 
@@ -96,8 +106,18 @@ public class TareaTest {
 	}
 	
 	@Test
+	public void calcularCompletitudTareaSimpleSinTerminar(){
+		assertFalse(tareaSimple2.estoyCompletada());
+	}
+	
+	@Test
 	public void calcularCompletitudTareaCompuestaConTareasSimplesTerminadas(){
 		assertTrue(tareaCompuesta.estoyCompletada());
+	}
+	
+	@Test
+	public void calcularCompletitudTareaCompuestaConUnaTareaSimpleSinTerminar(){
+		assertFalse(tareaCompuesta3.estoyCompletada());
 	}
 	
 	@Test
@@ -115,11 +135,4 @@ public class TareaTest {
 		assertEquals((long)tareaCompuesta2.costo(),7789);
 
 	}
-	//TODO : Arreglar y ver porque rompe.
-//	@Test
-//	public void calcularCompletitudTareaCompuestaConUnaTareaSimpleSinTerminar(){
-//		horaFin3 = new DateTime(2012,7,5,16,0);
-//		tareaSimple.setFin(horaFin3);
-//		assertFalse(tareaCompuesta.estoyCompletada());
-//	}
 }
